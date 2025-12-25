@@ -130,8 +130,8 @@ html,body{
   /* Use your font */
   font-family: "OricalCipher", ui-monospace, monospace;
 
-font-variant-ligatures: none;
-font-feature-settings: "kern" 1;
+  font-variant-ligatures: normal;
+  font-feature-settings: "ccmp" 1, "kern" 1;
 
   text-shadow: 0 0 12px rgba(255,43,43,0.22);
   caret-color: rgba(255,43,43,0.9);
@@ -262,7 +262,8 @@ font-feature-settings: "kern" 1;
 
 .key__glyph{
   font-family: "OricalCipher", ui-monospace, monospace;
-font-feature-settings: "kern" 1;
+  font-variant-ligatures: normal;
+  font-feature-settings: "ccmp" 1, "kern" 1;
   font-size: 28px;
   line-height: 1;
   text-shadow: 0 0 10px rgba(255,43,43,0.25);
