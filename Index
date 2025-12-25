@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Orical Keyboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand__title">ORICAL INPUT TERMINAL</div>
+        <div class="brand__sub">L-halves + R-halves → composed glyphs (ccmp)</div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="btnCopy" type="button">Copy</button>
+        <button class="btn" id="btnBackspace" type="button">Backspace</button>
+        <button class="btn" id="btnSpace" type="button">Space</button>
+        <button class="btn" id="btnNewline" type="button">Newline</button>
+        <button class="btn btn--danger" id="btnClear" type="button">Clear</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Screen -->
+      <section class="screenWrap">
+        <div class="screenFrame">
+          <div class="screenGrain"></div>
+          <div class="screenScanlines"></div>
+
+          <!-- contenteditable so it feels like a terminal -->
+          <div
+            id="screen"
+            class="screen"
+            contenteditable="true"
+            spellcheck="false"
+            aria-label="Orical terminal output"
+          ></div>
+
+          <div class="statusbar">
+            <span id="statusLeft">L: none</span>
+            <span id="statusRight">R: none</span>
+            <span id="statusHint">Tip: click L then R to form a whole glyph</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Keyboards -->
+      <section class="keyboards">
+        <div class="pad pad--left">
+          <div class="pad__title">LEFT (Ontology)</div>
+          <div class="grid" id="leftGrid"></div>
+        </div>
+
+        <div class="divider">
+          <div class="divider__sigil"></div>
+          <div class="divider__label">SPLIT</div>
+          <div class="divider__sigil"></div>
+        </div>
+
+        <div class="pad pad--right">
+          <div class="pad__title">RIGHT (Modulation)</div>
+          <div class="grid" id="rightGrid"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>PUA: L=E100–E10F • R=E200–E20F • Font features: ccmp/kern enabled</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
