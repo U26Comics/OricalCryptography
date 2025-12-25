@@ -48,6 +48,7 @@ function insertAtCaret(el, text) {
 // Track last-selected halves (purely for UI feedback)
 let lastLeft = null;
 let lastRight = null;
+let pendingLeft = null;
 
 function codepointToChar(cp) {
   return String.fromCodePoint(cp);
@@ -74,6 +75,19 @@ function makeKey(label, glyphChar, onClick) {
   return btn;
 }
 
+function formatStatus(prefix, selection) {
+  if (!selection) return `${prefix}: none`;
+  return `${prefix}: ${selection.label} ${selection.char}`;
+}
+
+function updateStatusLeft(selection) {
+  statusLeft.textContent = formatStatus("L", selection);
+}
+
+function updateStatusRight(selection) {
+  statusRight.textContent = formatStatus("R", selection);
+}
+
 function buildPads() {
   // Left keys
   for (let i = 0; i < 16; i++) {
@@ -83,9 +97,9 @@ function buildPads() {
 
     leftGrid.appendChild(
       makeKey(label, ch, () => {
-        lastLeft = label;
-        statusLeft.textContent = `L: ${label}`;
-        insertAtCaret(screen, ch);
+        pendingLeft = { label, char: ch };
+        lastLeft = pendingLeft;
+        updateStatusLeft(pendingLeft);
       })
     );
   }
@@ -98,9 +112,15 @@ function buildPads() {
 
     rightGrid.appendChild(
       makeKey(label, ch, () => {
-        lastRight = label;
-        statusRight.textContent = `R: ${label}`;
-        insertAtCaret(screen, ch);
+        if (!pendingLeft) {
+          statusRight.textContent = "R: select a left key first";
+          return;
+        }
+
+        lastRight = { label, char: ch };
+        updateStatusRight(lastRight);
+        insertAtCaret(screen, pendingLeft.char + ch);
+        pendingLeft = null;
       })
     );
   }
@@ -162,8 +182,9 @@ function clearScreen() {
   screen.textContent = "";
   lastLeft = null;
   lastRight = null;
-  statusLeft.textContent = "L: none";
-  statusRight.textContent = "R: none";
+  pendingLeft = null;
+  updateStatusLeft(lastLeft);
+  updateStatusRight(lastRight);
 }
 
 async function copyScreen() {
