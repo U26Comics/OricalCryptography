@@ -21,13 +21,19 @@ function insertAtCaret(el, text) {
   const sel = window.getSelection();
   if (!sel) return;
 
-  // If there's no range, append
-  if (sel.rangeCount === 0) {
-    el.textContent += text;
-    return;
+  const range =
+    sel.rangeCount > 0 ? sel.getRangeAt(0) : document.createRange();
+  const anchorNode = sel.anchorNode || range.startContainer;
+  const hasValidSelection =
+    anchorNode && (anchorNode === el || el.contains(anchorNode));
+
+  if (!hasValidSelection) {
+    range.selectNodeContents(el);
+    range.collapse(false);
+    sel.removeAllRanges();
+    sel.addRange(range);
   }
 
-  const range = sel.getRangeAt(0);
   range.deleteContents();
   const node = document.createTextNode(text);
   range.insertNode(node);
