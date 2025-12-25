@@ -125,13 +125,13 @@ html,body{
   color: var(--red);
   font-size: 22px;
   line-height: 1.35;
+  letter-spacing: 0;
 
   /* Use your font */
   font-family: "OricalCipher", ui-monospace, monospace;
 
-  /* Force OpenType shaping so L+R ligatures form the whole glyph */
-  font-variant-ligatures: contextual common-ligatures discretionary-ligatures;
-  font-feature-settings: "ccmp" 1, "liga" 1, "clig" 1, "kern" 1;
+font-variant-ligatures: none;
+font-feature-settings: "kern" 1;
 
   text-shadow: 0 0 12px rgba(255,43,43,0.22);
   caret-color: rgba(255,43,43,0.9);
@@ -262,10 +262,11 @@ html,body{
 
 .key__glyph{
   font-family: "OricalCipher", ui-monospace, monospace;
-  font-feature-settings: "ccmp" 1, "kern" 1;
+font-feature-settings: "kern" 1;
   font-size: 28px;
   line-height: 1;
   text-shadow: 0 0 10px rgba(255,43,43,0.25);
+  letter-spacing: 0;
 }
 
 .key__label{
